@@ -34,6 +34,8 @@
   page-numbering: "1",
 )
 
+#show: setup_maths.with()
+
 #outline()
 
 == Remarques
@@ -48,7 +50,7 @@
   - Deux épreuves écrites de 1h30, chacune comptant pour 45%
   - 1 à 4 évaluations (QCM, oral, ...) comptant au total pour 10%
 
-= Pourquoi oune nouvelle théorie de l'intégration ?
+= Pourquoi une nouvelle théorie de l'intégration ?
 On a des fonctions non-intégrables...
 
 == Pourquoi intégrer ?
@@ -248,4 +250,173 @@ L'ensemble $X$ peut être, par exemple,
 
 La mesure fournit le cadre dans lequel "integrer sur une partie de $X$" prend un sens.
 
+]
+
+#proposition[
+  Soit $AAAA$ une tribu sur $X$. Alors :
+  + $emptyset in AAAA$
+  + Si $(A_n)_(n >= 1) subset A$, alors : $ biginter_(n>=1)A_n in AAAA $
+  + Si $A,B in AAAA$, alors $ A without B in AAAA $
+]
+
+#proof[
+  + $emptyset = X without X$
+  + D'après de Morgan : $ biginter_(n >= 1) A_n = X without (bigunion_(n >= 1) X without A_n) = (bigunion_(n >= 1) (A_n)^F)^F $
+  + $A without B = $
+]
+
+#example[
+  Sur tout ensemble $X$ : ${emptyset, X}$ et $PPP(X)$ sont des tribus.
+
+  Ce sont deux cas extrême : la première est la plus petite tribu possible, la seconde est la plus grande possible.
+]
+
+#exercice[
+  Soit $X = {1,2,3,4}$
+
+  + Déterminer la plus petite tribu contenant $A = {1,2}$
+  + Déterminer la plus petite tribu contenant $A = {1,2}, B = {2,3}$
+]
+
+#proof[
+  + $AAAA = {emptyset, {1,2}, {3,4}, X}$
+  + $A inter B = {2}, A without B = {1}, B without A = {3}, X without (A union B) = {4}$, donc $AAAA = PPP(X)$
+]
+
+=== Engendrer une tibu
+
+L'exercice précédent conduit a une question naturelle.
+
+Étant donnee une famille quelcoque $CCCC subset PPPP(X)$, existe-t-il une plus petite tribu contenant $CCCC$ ?
+
+#proposition[
+  Soit $(AAAA_i)_(i in I)$ une famille de tribus sur $X$. Alors $ biginter_(i in I) AAAA_i $ est une tribu sur $X$.
+]
+
+#proof[
+  Pour tout $i in I$, on a $X in AAAA$, donc $ X in biginter_(i in I) AAAA_i $
+
+  Si $A$ appartient a tous les $AAAA_i$, alors $X without A$ appartient à tous les $AAAA_i$. Enfin si chaque $A_n$ appartient à tous les $AAAA_i$, alors $bigunion_(n >= 1) A_n$ appartient a tous les $AAAA_i$
+]
+
+#definition[
+  Soit $CCCC in PPP(X)$. On appelle *tribu engendrée par $CCC$* la tribu $ sigma(CCCC) = biginter_(AAAA "tribu sur" X \ CCCC subset A) AAAA $
+]
+_Autrement dit, $sigma(CCCC)$ est la plus petite tribu contenant $CCCC$._
+
+#remark[
+  Cette definition est bien legitime, il existe toujours au moims une tribu contenant $CCCC$ à savoir $PPPP(X)$
+]
+
+=== Engendrer : une operation de fermeture
+
+Nous avons déja rencontre plusieurs constructions du meme type :
+$
+Vect(E), quad E^F, quad sigma(CCCC)
+$ 
+
+Dans chaque cas, on cherche le plus petit objet d'une certaine nature contenant les données initiales.
+
+On ajoute exactement ce que les propriétés de l'objet nous obligent à ajouter.
+
+#exercice[
+  Soit $X$ un ensemble et $A subset X$
+  + Déterminer explicitement $ sigma({A}) $ engendree par le seul ensemble $A$.
+  + A quelle condition cette tribu possède-t-elle exactement quatre éléments ?.
+]
+
+#proof[
+
+  + Toute tribu contenant $A$ doit contenir son complémentaire $ A^' = X without A $ ainsi que $emptyset$ et $X$. On est nécessairement conduit à considérer $ AAAA = {emptyset, A, A^C, X} $Or cette famille est elle-même une tribu.
+
+  + La famille $ {emptyset, A, A^C, X} $ possède quatre element distincts ssi $A != emptyset$, $A != X$. En effet, si $A = emptyset$ ou $A = X$, alors $ sigma({A}) = {emptyset,X} $
+    
+    Ainsi $ Card(sigma({A})) = cases(2 &"si" A = emptyset "ou" A = X,4 &"sinon") $
+
+]
+
+== Les boréliens de $RR$
+
+La topologie de $RR$ nous fournit une famille naturelle d'ensembles : les ouverts.
+
+#definition[
+  La *tribu borélienne* de $RR$ notée $BBBB(RR)$
+
+  est la tribu engendrée par les ouverts de $RR$ : $ BBBB(RR) = sigma({O subset RR | O "ouvert"}) $
+
+  Les éléments de $BBBB(RR)$ sont appelés des *boréliens* de $RR$.
+]
+
+#proposition[
+  La tribu borélienne de $RR$ est également engendrée par les intervalles ouverts : $BBBB(RR) = sigma({(a,b) | a < b})$
+]
+
+#proof[
+
+  Tous les intervalles ouverts sont dans $BBBB(RR)$, donc on a l'inclusion dans un sens.
+
+  Réciproquement, soit $O$ un ouvert de $RR$. Considérons $ SSSS_O = {(p,q) | p,q in QQ, (p,q) subset O} $
+  Comme $QQ^2$ est dénombrable, $SSSS_O$ est denombrable.
+
+  Montrons que $O = bigunion_(I in SSSS_O) I$
+
+  l'inclusion de droite à gauche est immediate.
+
+  Réciproquememt : soit $x in O$. Comme $O$ est ouvert, il existe $epsilon > 0$ tel que $ (x-epsilon, x+epsilon) subset O $
+
+  Par densité de $QQ$ dans $RR$, on peut choisir $p,q in QQ$ tels que : $ x-epsilon < p < x < q < x + epsilon $
+
+  Ainsi $x in (p,q) subset O$
+
+  Donc tout ouvert est réunion dénombrable d'intervalles ouverts à extrémités rationnelles, et appartient donc à la tribu engendrée par les intervalles ouverts.
+]
+
+
+== Nous savons quels ensembles mesurer...
+
+Au chapitre précédent, nous avons choisi une famille $AAAA$ de parties de $X$ stable sous les operations ensemblistes dont bous vons besoin. Il reste maintenant à attribuer à chaque ensemble mesurable $A in AAAA$ une "taille" : $ mu(A) in [0,infinity] $
+
+*Quelles propriétés doit satisfaire une telle notion de taille ?*
+
+=== Que doit faire une mesure ?
+
+Quelques exigences paraissent naturelles. L'ensemble vide doit avoir unetaille nulle : $mu(emptyset) = 0$
+
+Si deux ensembles mesurables $A$ et $B$ sont disjoints, on souhaite $ mu(A union B) = mu(A) + mu(B) $
+
+Mais l'analyse fait intervenir des suites d'ensembles. Il faut donc demander davatage : pour les ensembles mesurables deux-à-deux disjoints $(A_n)_(n in I)$, $ mu(bigunion_(n in I) A_n) = sum_(n in I) mu(A_n) $
+
+#definition[
+  Soit $(X,AAAA)$ une mesure sur $(X,AAAA)$ est une application $ mu : AAAA --> [0,infinity] $ telle que :
+  + $mu(emptyset) = 0$
+  + Pour toute suite $(A_n)_(n>=1)$ d'éléments de $AAAA$ deux-à-deux disjoints $ mu(bigunion_(n in I)A_n) = sum_(n in I)mu(A_n) $
+  
+  Le triplet $(X,AAAA,mu)$ est appele *espace mesuré*.
+]
+
+=== Trois premiers exemples
+
++ Sur un ensemble quelconque $X$, la *mesure de comptage* est définie par $mu(A) --> Card(A)$ avec $mu(A) = infinity$ lorsque $A$ est infini.
++ Si $x_0 in X$, la *mesure de Dirac* en $x_0$ est :
+  $ delta_(x_0)(A) = cases(1 quad &x_0 in A, 0 &x_0 in.not A) $
++ Sur $RR$, nous cherchons une mesure qui attribue à un intervalle sa longueur :
+  $ mu([a,b]) = b - a $
+
+#exercice[
+  Soit $X$ un ensemble muni de la tribu $PPP(X)$.
+  + Vérifier que la mesure de comptage est bien une mesure sur $X$.
+  + Vérifier que pour tout $x_0 in X$, $delta_(x_0)$ est une mesure.
+  + Que vaut $delta_(x_0)(A) + delta_(x_1)(A)$ lorsque $x_0,x_1 in X$ ? Interpréter cette expression.
+]
+
+#proof[
+  + Soit $(A_n)_(n>=1) A_n$ une suite de parties de $X$ deux-à-deux disjointes. Si l'un des ensembles $A_n$ est infini, alors $mu(bigunion_(n>=1)A_n) = infinity = sum_(n>=1)mu(A_n)$
+
+    Supposons maintenant tous les $A_n$ finis.
+
+    Si une infinité d'entre eux sont non-vides, alors $ sum_(n >= 1) mu(A_n) = infinity $
+
+    Et leur réunion est infinie.
+
+    Enfin, si seulement un nombre fini d'entre eux sont non-vides, l'additivite finie du cardinal donne $ mu(bigunion_(n>=1)A_n) = sum_(n>=1)mu(A_n) $
 ]
