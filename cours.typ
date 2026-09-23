@@ -221,7 +221,7 @@ C'est exactement le role des *tribus* et des *mesures*.
 = Mesures
 
 
-== De la tribu à la mesure 
+== De la tribu à la mesure
 === Quels ensembles voulons-nous mesurer ?
 
 Nous voulons disposer d'une  famille $AAAA$ de parties de $X$ auxquelles nous pouvos attribuer une mesure.
@@ -462,7 +462,7 @@ _Une mesure est donc monotone pour l'inclusion_
 ]
 
 #remark[
-  L'hypothèse $mu(A) < infinity$ est essentielle pour écrire cette différence : l'expression $ infinity - infinity$ n'a pas de sens.
+  L'hypothèse $mu(A) < infinity$ est essentielle pour écrire cette différence : l'expression $infinity - infinity$ n'a pas de sens.
 ]
 
 #proposition("sous-additivité dénombrable")[
@@ -520,7 +520,7 @@ _La $sigma$-additivité donne précisément cette propriété de *continuité*._
 ]
 
 #example[
-  L'ensemble de Cantor (voir #link((<exo_cantor_dense>),"exo sur Cantor dense"))
+  L'ensemble de Cantor (voir #link((<exo_cantor_dense>), "exo sur Cantor dense"))
 ]
 
 #proof[
@@ -534,7 +534,7 @@ _La $sigma$-additivité donne précisément cette propriété de *continuité*._
   Comme $mu(A_1) < infinity$ :
   $mu(A_1) < infinity$, $ mu(A_1) - mu(A) = lim_(n->infinity) (mu(A_1) - mu(A_n) $
 
-  On en déduit $ mu(A) = lim_(n->infinity)mu(A_n)$
+  On en déduit $mu(A) = lim_(n->infinity)mu(A_n)$
 ]
 
 #exercice[
@@ -559,7 +559,7 @@ _La $sigma$-additivité donne précisément cette propriété de *continuité*._
 
 Nous cherchons maintenant une mesure $lambda$ sur $RR$ qui prolonge notre notion usuelle de longueur.
 
-Nous voulons en particulier, pour $b > a$ : $ lambda([a,b]) = b-a $ 
+Nous voulons en particulier, pour $b > a$ : $ lambda([a,b]) = b-a $
 
 Mais connaître la longueur des intervalles ne suffit pas encore à définir la mesure d'un ouvert quelconque, et moins encore celle d'un borélien.
 
@@ -577,7 +577,7 @@ _On cherche donc à recouvrir $A$ en payant le moins cher possible._
 #definition[
   Soit $A subset RR$. On définit la *mesure extérieur de Lebesgue* par :
   $
-  lambda^* (A) = inf { sum_(n>=1) |I_n| | A subset bigunion_(n>=1) I_n "intervalles ouverts" }
+    lambda^* (A) = inf { sum_(n>=1) |I_n| | A subset bigunion_(n>=1) I_n "intervalles ouverts" }
   $
 
   Ici, si $I = (a,b), abs(I) = b-a$
@@ -604,7 +604,7 @@ _La troisieme propriété fondamentale est moins immédiate._
 #proposition[
   Pour toute suite $(A_n)_(n>=1)$ de parties de $RR$ :
   $
-  lambda^*(bigunion_(n>=1)A_n) <= sum_(n>=1)lambda^*(A_n)
+    lambda^*(bigunion_(n>=1)A_n) <= sum_(n>=1)lambda^*(A_n)
   $
 ]
 
@@ -619,7 +619,7 @@ Pour chaque $A_n$, il faut choisir un recouvrement dont le coût est *presque* �
 
   Pour chaque $n >= 1$, choisissons des intervalles ouverts $(I_(n,k))_(k>=1)$ tels que $ A_n subset bigunion_(k>=1)I_(n,k) $ et :
   $
-  sum_(k=1)abs(I_(n,k)) <= lambda^*(A_n) + epsilon/2^n
+    sum_(k=1)abs(I_(n,k)) <= lambda^*(A_n) + epsilon/2^n
   $
 
   La famille $(I_(n,k))_(n,k>=1)$ recouvre $bigunion_(n>=1)A_n$. Ainsi :
@@ -640,4 +640,75 @@ Nous avons déjâ $lambda^*(emptyset) = 0$ et $lambda^*$ $sigma$-sous-additive.
 Pour être une mesure, il faudrait obtenir une *égalité* lorsque les $A_n$ sont deux-à-deux disjoints.
 
 _C'est ici que toutes les parties de $RR$ ne se comportent plus aussi bien._
+
+=== Découper sans créer de longueur
+
+Fixons $A subset RR$ et prenons un ensemble quelconque $E subset RR$.
+
+L'ensemble $A$ découpe $E$ en deux morceaux disjoints :
+
+$E = (E inter A) union (E without A)$
+
+La sous-additivité donne toujours :
+
+$
+  lambda^*(E) <= lambda^*(E inter A) + lambda^*(E without A)
+$
+
+Un ensemble $A$ sera considéré comme "mesurable" si ce découpage ne crée aucune longueur :
+$
+  lambda^*(E) = lambda^*(E inter A) + lambda^*(E without A)
+$
+
+#definition[
+  Un ensemble $A subset RR$ est *mesurable au sens de Carathéodory* si, pour tout $E subset RR$ :
+  $
+    lambda^*(E) = lambda^*(E inter A) + lambda^*(E without A)
+  $
+
+  On note $MMMM = {A subset RR | A "mesurable au sens de Carathéodory"}$
+]
+
+#remark[
+  L'inégalité $lambda^*(E) <= lambda^*(E inter A) + lambda^*(E without A)$ est toujours vraie.
+]
+
+=== Premier test : le complémentaire
+
+Supposons $A in MMMM$. Pour tout $E subset RR :$ $ lambda^*(E) = lambda^*(E inter A) + lambda^*(E without A) $
+
+Mais $E inter A^C = E without A$ et $E without A^C = E inter A$. Ainsi : $ lambda^*(E) = lambda^*(E inter A) + lambda^*(E inter A^C) + lambda^*(E without A^C) $
+
+#proposition[
+  Si $A in MMMM$, alors $A^C in MMMM$
+]
+
+=== Deux ensembles mesurables
+
+Soient $A,B in MMMM$ et $E subset RR$. En découpant d'abord $E$ par $A$ : $lambda^*(E) = lambda^*(E inter A) + lambda^*(E without A)$.
+
+Puis en découpant chacun des deux morceaux de $B$ : $ lambda^*(E) = lambda^*(E inter A inter B) + lambda^*(E inter A without B) + lambda^*(E inter B without A) + lambda^*(E without (A union B)) $
+
+Les trois premiers morceaux forment $E inter A union B$.
+
+#exercice[Montrer cette égalité.]
+
+#proof[
+  Par sous-additivité :
+
+  $
+  lambda^*(E inter (A union B)) <= lambda^*(E inter A inter B) + lambda^*(E inter A without B) + lambda^*(E inter B without A)
+  $
+
+  La décomposition de la planche précédente donne donc 
+  $ 
+  lambda^*(E) >= lambda^*(E inter (A union B)) + lambda^*(E without A union B)
+  $
+
+  L'inégalité inverse résulte de la sous-additivité. Ainsi $A union B in MMMM$. 
+]
+
+#corollary[
+  La famille $MMMM$ est stable par unions finies.
+]
 
